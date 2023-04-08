@@ -4,42 +4,40 @@
 <html>
 <head>
 <style>
-table {
+.table{
     border-collapse: collapse;
-    width: 100%;
+    margin: 25px 0px;
+    font-size: 0.9em;
+    min-width: 400px;
+    /* border:black 2px solid; */
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0 , 0 ,0 ,0.15);
 }
 
-th, td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #000;
+.table thead tr{
+    background-color: #000;
+    color:white;
+    font-weight: bold;
 }
 
-th{
-  background-color: black; 
-  color: white;
+.table th,.table td{
+    padding: 12px 15px;
 }
 
-tr:hover {
-    background-color: #f5f5f5;
+.table tbody tr {
+
+    border-bottom: 1px solid #dddddd;
 }
 
-tr:nth-child(even) {
-    background-color: #f2f2f2;
+.table tbody tr:nth-of-type(even){
+   background-color: #f3f3f3;
 }
 
-.space {
-    margin-bottom: 16px;
-}
-.button-col {
-    width: 25%;
+.table tbody tr:last-of-type{
+    border-bottom: 3px solid #000;
 }
 
-.button-col button {
-    display: block;
-    margin: 0 auto;
-    width: 80%;
-}
 </style> 
 
 
@@ -82,16 +80,12 @@ tr:nth-child(even) {
 </br></br></br></br></br></br></br></br>
 
 <?php
+  include("connection.php");
 session_start();
     if(!isset($_SESSION['x']))
         header("location:headlogin.php");
     
-    $conn=mysqli_connect("localhost","root","");
-    if(!$conn)
-    {
-        die("could not connect".mysqli_error());
-    }
-    mysqli_select_db($conn,"on_the_go incident reporter");
+  
     
     // Fetch all the complaints from the database
 $sql = "SELECT id_no,u_name,sub,woreda,gen,mob FROM user ";
@@ -103,7 +97,8 @@ if (!$result) {
 // Check if there are any complaints in the database
 if (mysqli_num_rows($result) > 0) {
     // Start the table and output the header row
-    echo "<table>";
+    echo "<table  class='table';>";
+    echo "<thead>";
     echo "<tr>
       <th>Registration ID</th>
       <th>User Name</th>
@@ -111,7 +106,8 @@ if (mysqli_num_rows($result) > 0) {
       <th>Woreda</th>
       <th>Gender</th>
       <th>Phone No</th></tr>";
-
+      echo "</thead>";
+      echo "<tbody>";
     // Loop through the result set and output each row as a table row
     while ($row = mysqli_fetch_assoc($result)) {
         echo "<tr>
@@ -125,7 +121,7 @@ if (mysqli_num_rows($result) > 0) {
        </tr>";
     
     }
-
+    echo "</tbody>";
     // End the table
     echo "</table>";
 } else {
@@ -174,15 +170,10 @@ if(isset($_POST['s2']))
       <input class="btn btn-danger" type="submit" value="Delete user" name="s2" style="margin-top: 10px; margin-left: 9%;">
         </div>
     </form>
-<div style="position: fixed;
-   left: 0;
-   bottom: 0;
-   width: 100%;
-   background-color:#3b3b3b;
-   color: white;
-   text-align: center;">
-  <h4 style="color: white;">&copy <b>On_The_Go Incident Reporter</b></h4>
-</div>
+
+    <?php
+      include("footer.php");
+    ?>
     
 
  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>

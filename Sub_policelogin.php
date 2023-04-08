@@ -7,18 +7,13 @@
 	<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 	<title>Subcity Police Login</title>
   <?php
-
+include("connection.php");
 if(isset($_POST['s']))
 {
+
     session_start();
     $_SESSION['x']=1;
-    $conn=mysqli_connect("localhost","root","");
-    if(!$conn)
-    {
-        die("could not connect".mysqli_error());
-    }
-    mysqli_select_db($conn,"on_the_go incident reporter");
-    
+  
     if($_SERVER["REQUEST_METHOD"]=="POST")
     {
         $name=$_POST['email'];
@@ -93,16 +88,10 @@ if(sta2!="" && x2>=0){
 </form>
 	</div>
 </div>
-<div style="position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            background-color:#3b3b3b;
-            color: white;
-            text-align: center;">
-            <h4 style="color: white;">&copy <b>On_The_Go Incident Reporter</b></h4>
-         </div>
 
+<?php
+include("footer.php");
+?>
 
 </body>
 </html>

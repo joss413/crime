@@ -9,23 +9,17 @@
 	
 	<title>Taker Login</title>
   <?php
-
+ include("connection.php");
 if(isset($_POST['s']))
 {
     session_start();
     $_SESSION['x']=1;
-    $conn=mysqli_connect("localhost","root","");
-    if(!$conn)
-    {
-        die("could not connect".mysqli_error());
-    }
-    mysqli_select_db($conn,"on_the_go incident reporter");
-    
+  
     if($_SERVER["REQUEST_METHOD"]=="POST")
     {
         $name=$_POST['email'];
         $pass=$_POST['password'];
-        $result=mysqli_query($conn,"SELECT T_id,T_pass FROM Taker where T_id='$name'");
+        $result=mysqli_query($conn,"SELECT T_id,T_pass FROM Taker where T_id='$name' and T_pass='$pass' ");
         
         if(mysqli_num_rows($result)==0)
         {
@@ -34,22 +28,11 @@ if(isset($_POST['s']))
         }
         else 
         {
-            $row = mysqli_fetch_assoc($result);
-            if(password_verify($pass, $row['T_pass'])) {
-                header("location:TakerHome.php");
-                exit; // Make sure to exit after redirecting
-            }
-            else {
-                $message = " Password not Matched.";
-                echo "<script type='text/javascript'>alert('$message');</script>";
-            }
+          header("location:TakerHome.php");
         }
     }                
 }
-
-?>
-
-
+?> 
 </head>
 <body style="color: black;background-image: url(pictures/Taker.jpg);background-size: 100%;background-repeat: no-repeat;back">
 	<nav class="navbar navbar-default navbar-fixed-top" style="background-color:#3b3b3b;">
@@ -84,15 +67,8 @@ if(isset($_POST['s']))
 </form>
   </div>
 </div>
-<div style="position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            background-color:#3b3b3b;
-            color: white;
-            text-align: center;">
-            <h4 style="color: white;">&copy <b>On_The_Go Incident Reporter</b></h4>
-         </div>
-
+<?php
+inlcude("footer.php");
+?>
 </body>
 </html>

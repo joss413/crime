@@ -84,16 +84,10 @@
 
 
 <?php
+  include("connection.php");
     session_start();
     if(!isset($_SESSION['x']))
         header("location:Takerlogin.php");
-    
-    $conn=mysqli_connect("localhost","root","");
-   
-    if (!$conn) {
-      die("Connection failed: " . mysqli_connect_error());
-  }
-  mysqli_select_db($conn,"on_the_go incident reporter");
   // Fetch all the complaints from the database
   $sql = "SELECT id_no,c_id, type_crime, d_o_c,repo_time_and_date,location,description, inc_status, p_id FROM complaint";
   $result = mysqli_query($conn, $sql);
@@ -117,7 +111,7 @@
       <th>Reject</th>
       </tr>";
       echo"</thead>";
-     echo"<tbody?>";
+     echo"<tbody>";
       // Loop through the result set and output each row as a table row
       while ($row = mysqli_fetch_assoc($result)) {
         echo "<tr class='complaint-row' id='complaint-".$row["c_id"]."'>

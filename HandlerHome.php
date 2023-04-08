@@ -7,21 +7,13 @@
 <head>
 
 <?php
+  include("connection.php");
     session_start();
     if(!isset($_SESSION['x']))
         header("location:Handlerlogin.php");
     
-    $conn=mysqli_connect("localhost","root","");
    
-    if (!$conn) {
-      die("Connection failed: " . mysqli_connect_error());
-  }
-  mysqli_select_db($conn,"on_the_go incident reporter");
-
- 
       
-  
-
   $result1=mysqli_query($conn,"SELECT location FROM p_handler");
   $q2=mysqli_fetch_assoc($result1);
   $location=$q2['location'];
@@ -146,18 +138,9 @@
 </table>
  </div>
     
-
- <div style="position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            background-color:#3b3b3b;
-            color: white;
-            text-align: center;">
-            <h4 style="color: white;">&copy <b> On_The_Go Incident Reporter | All Right Reserved </b></h4>
-         </div>
-
-
+<?php
+ include("footer.php");
+?>
 	<title>Handler Homepage</title>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -175,6 +158,7 @@
       }       
 }
 </script>
+
 
  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>

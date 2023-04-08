@@ -4,18 +4,10 @@
 <html>
  
 <?php
+include("connection.php");
 session_start();
     if(!isset($_SESSION['x']))
         header("location:userlogin.php");
-    
-    
-    $conn=mysqli_connect("localhost","root","");
-    if(!$conn)
-    {
-        die("could not connect".mysqli_error());
-    }
-    mysqli_select_db($conn,"on_the_go incident reporter");
-    
     $u_id=$_SESSION['u_id'];
         
         $result=mysqli_query($conn,"SELECT id_no FROM user where u_id='$u_id' ");
@@ -200,15 +192,10 @@ if(isset($_POST['s'])){
 		</div>
 	</div>	
 </div>	
-<div style="position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            background-color:#3b3b3b;
-            color: white;
-            text-align: center;">
-            <h4 style="color: white;">&copy <b>On_The_Go Incident Reporter</b></h4>
-         </div>
+<?php
+
+include("footer.php");
+?>
  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>

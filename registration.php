@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html>
 <?php
+include("connection.php");
 if(isset($_POST['s'])){
-    $con=mysqli_connect('localhost','root','');
-    if(!$con)
-    {
-        die('could not connect: '.mysqli_error());
-    }
+
     if($_SERVER["REQUEST_METHOD"]=="POST"){
         $u_name=$_POST['name'];
         $u_id=$_POST['email'];
